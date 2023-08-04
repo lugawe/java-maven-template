@@ -3,7 +3,7 @@ name: Java CI - Release
 on:
   push:
     tags:
-      - v*
+      - "v[0-9]+.[0-9]+.[0-9]+$"
 
 jobs:
   create:
@@ -17,7 +17,7 @@ jobs:
         with:
           java-version: "11"
           distribution: "temurin"
-      - run: ./mvnw --batch-mode clean install
+      - run: ./mvnw --batch-mode clean package
       - run: mkdir release && cp target/*.jar release
       - run: zip release/out.zip -j -r release
       - name: Create GitHub Release
