@@ -1,4 +1,4 @@
-name: Java CI - Maven
+name: CI - Maven
 
 on: [ push ]
 
@@ -13,5 +13,5 @@ jobs:
         with:
           java-version: "11"
           distribution: "temurin"
-      - name: Build
+      - name: Package
         run: ./mvnw --batch-mode package
