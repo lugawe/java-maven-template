@@ -3,12 +3,10 @@
 set -e
 
 package_dir="package"
-package_zip="package.zip"
+package_zip="$package_dir/package.zip"
 
-echo "Building package..."
 ./mvnw --batch-mode clean package >/dev/null
 
-echo "Prepare package..."
 if [ -d $package_dir ]; then
   rm $package_dir/*.jar
 else
