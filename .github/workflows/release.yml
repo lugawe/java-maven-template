@@ -18,12 +18,8 @@ jobs:
         with:
           java-version: "11"
           distribution: "temurin"
-      - name: Maven clean package
-        run: ./mvnw --batch-mode clean package
-      - name: Prepare release directory
-        run: mkdir release && cp target/*.jar release
-      - name: Zip release directory
-        run: zip release/out.zip -j -r release
+      - name: Run create-package-zip.sh
+        run: ./create-package-zip.sh
       - name: Create GitHub release
         id: create-github-release
         uses: actions/create-release@v1
@@ -38,6 +34,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-github-release.outputs.upload_url }}
-          asset_path: release/out.zip
-          asset_name: release-artifacts.zip
+          asset_path: package/package.zip
+          asset_name: artifacts.zip
           asset_content_type: application/zip
