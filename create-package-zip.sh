@@ -5,7 +5,10 @@ set -e
 package_dir="package"
 package_zip="$package_dir/package.zip"
 
-./mvnw --batch-mode clean package >/dev/null
+./mvnw --batch-mode clean package >/dev/null || {
+  echo "create-package-zip.sh: mvnw clean package failed"
+  exit 1
+}
 
 if [ -d $package_dir ]; then
   rm $package_dir/*.jar
